@@ -20,8 +20,7 @@ class Game:
 
         running = True
         while running:
-            clock.tick(5)  # Adjust the speed of the game here
-
+            clock.tick(5)  # Adjust the speed of the game here (smaller = slower)
             self.handle_events()
             self.update()
             self.draw(screen)
@@ -44,7 +43,7 @@ class Game:
                 elif event.key == pygame.K_d:
                     self.snake.change_direction("RIGHT")
                 elif event.key == pygame.K_ESCAPE:
-                    pygame.quit()
+                    running = False
 
     def update(self):
         self.snake.move()
