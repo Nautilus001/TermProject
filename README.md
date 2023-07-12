@@ -27,7 +27,3 @@ The core classes, functions, and methods that will be necessary for the snake ga
 5. ScoreCounter: This class manages the player's score.
    - `__init__()`: Initializes the score counter.
    - `increase_score()`: Increases the score based on the number of circles collected.
-
-Now let's proceed with the implementation of each file.
-
-**game.py**
