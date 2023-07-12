@@ -5,9 +5,13 @@
 4. Run "python game.py"
 
 
+# Testing Breakdown
+1. Slash
+2. Coverage
+3. Mutation
+4. Mocking
 
-
-The core classes, functions, and methods that will be necessary for the snake game are as follows:
+The core classes, functions, and methods are as follows:
 
 1. Game: This class will handle the main game loop and manage the game state.
    - `__init__()`: Initializes the game state.
