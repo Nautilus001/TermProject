@@ -20,7 +20,7 @@ class Game:
 
         running = True
         while running:
-            clock.tick(10)  # Adjust the speed of the game here
+            clock.tick(5)  # Adjust the speed of the game here
 
             self.handle_events()
             self.update()
@@ -43,6 +43,8 @@ class Game:
                     self.snake.change_direction("LEFT")
                 elif event.key == pygame.K_d:
                     self.snake.change_direction("RIGHT")
+                elif event.key == pygame.K_ESCAPE:
+                    pygame.quit()
 
     def update(self):
         self.snake.move()
@@ -51,8 +53,9 @@ class Game:
             self.game_over()
 
         if self.snake.collides_with(self.circle.position):
+            self.circle.pop
             self.snake.grow()
-            self.circle.generate_new_position()
+            self.circle = Circle(self.grid_size)
             self.score_counter.increase_score()
 
     def draw(self, screen):
@@ -63,8 +66,7 @@ class Game:
         self.score_counter.draw(screen)
 
     def game_over(self):
-        # Add game over logic here
-        pass
+        pygame.quit()
 
 if __name__ == "__main__":
     game = Game()

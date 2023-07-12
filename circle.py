@@ -9,3 +9,6 @@ class Circle:
         x = random.randint(0, grid_size[0] - 1)
         y = random.randint(0, grid_size[1] - 1)
         return x, y
+    
+    def pop(self):
+        del self
