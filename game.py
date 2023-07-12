@@ -1,0 +1,71 @@
+import pygame
+from snake import Snake
+from circle import Circle
+from grid import Grid
+from score_counter import ScoreCounter
+
+class Game:
+    def __init__(self):
+        self.grid_size = (10, 10)
+        self.grid = Grid(self.grid_size)
+        self.snake = Snake(self.grid_size)
+        self.circle = Circle(self.grid_size)
+        self.score_counter = ScoreCounter()
+
+    def run(self):
+        pygame.init()
+        clock = pygame.time.Clock()
+        screen = pygame.display.set_mode(self.grid.get_screen_size())
+        pygame.display.set_caption("Snake Game")
+
+        running = True
+        while running:
+            clock.tick(10)  # Adjust the speed of the game here
+
+            self.handle_events()
+            self.update()
+            self.draw(screen)
+
+            pygame.display.flip()
+
+        pygame.quit()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    self.snake.change_direction("UP")
+                elif event.key == pygame.K_s:
+                    self.snake.change_direction("DOWN")
+                elif event.key == pygame.K_a:
+                    self.snake.change_direction("LEFT")
+                elif event.key == pygame.K_d:
+                    self.snake.change_direction("RIGHT")
+
+    def update(self):
+        self.snake.move()
+
+        if self.snake.check_collision(self.grid_size):
+            self.game_over()
+
+        if self.snake.collides_with(self.circle.position):
+            self.snake.grow()
+            self.circle.generate_new_position()
+            self.score_counter.increase_score()
+
+    def draw(self, screen):
+        screen.fill((0, 0, 0))
+        self.grid.draw(screen)
+        self.grid.draw_snake(screen, self.snake)
+        self.grid.draw_circle(screen, self.circle)
+        self.score_counter.draw(screen)
+
+    def game_over(self):
+        # Add game over logic here
+        pass
+
+if __name__ == "__main__":
+    game = Game()
+    game.run()
