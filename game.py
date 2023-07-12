@@ -11,6 +11,7 @@ class Game:
         self.snake = Snake(self.grid_size)
         self.circle = Circle(self.grid_size)
         self.score_counter = ScoreCounter()
+        self.circles_eaten = 0
 
     def run(self):
         pygame.init()
@@ -54,8 +55,11 @@ class Game:
         if self.snake.collides_with(self.circle.position):
             self.circle.pop
             self.snake.grow()
+            self.circles_eaten += 1
             self.circle = Circle(self.grid_size)
-            self.score_counter.increase_score()
+            self.score_counter.get_circles_eaten(self.circles_eaten)
+
+        self.score_counter.increase_score()
 
     def draw(self, screen):
         screen.fill((0, 0, 0))
