@@ -1,3 +1,12 @@
+# To run
+1. Clone project to your machine
+2. Navigate to the directory in terminal
+3. Run "pip install -r requirements.txt"
+4. Run "python game.py"
+
+
+
+
 The core classes, functions, and methods that will be necessary for the snake game are as follows:
 
 1. Game: This class will handle the main game loop and manage the game state.
