@@ -12,17 +12,21 @@ class Game:
         self.circle = Circle(self.grid_size)
         self.score_counter = ScoreCounter()
         self.circles_eaten = 0
+        self.paused = False
+        self.running = True
 
     def run(self):
         pygame.init()
         clock = pygame.time.Clock()
         screen = pygame.display.set_mode(self.grid.get_screen_size())
         pygame.display.set_caption("Snake Game")
-
-        running = True
-        while running:
+        self.paused = False
+        self.running = True
+        while self.running:
             clock.tick(5)  # Adjust the speed of the game here
             self.handle_events()
+            while self.paused:
+                self.is_paused()
             self.update()
             self.draw(screen)
 
@@ -30,10 +34,19 @@ class Game:
 
         pygame.quit()
 
+    def is_paused(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.paused = not self.paused
+                    break
+    
     def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                self.running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
                     self.snake.change_direction("UP")
@@ -43,8 +56,11 @@ class Game:
                     self.snake.change_direction("LEFT")
                 elif event.key == pygame.K_d:
                     self.snake.change_direction("RIGHT")
+                elif event.key == pygame.K_SPACE:
+                    self.paused = not self.paused
+                    break
                 elif event.key == pygame.K_ESCAPE:
-                    running = False
+                    self.running = False
 
     def update(self):
         self.snake.move()
@@ -70,7 +86,7 @@ class Game:
 
     def game_over(self):
         pygame.quit()
-        
+
 if __name__ == "__main__":
     game = Game()
     game.run()
