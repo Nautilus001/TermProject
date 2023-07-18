@@ -2,7 +2,10 @@
 1. Clone project to your machine
 2. Navigate to the directory in terminal
 3. Run "pip install -r requirements.txt"
-4. Run "python game.py"
+   
+   a. This step occasionally caused issues, if you receive a pip error, try
+      "pip install pygame==2.0.1"
+5. Run "python game.py"
 
 
 # Testing Breakdown
