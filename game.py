@@ -21,7 +21,7 @@ class Game:
 
         running = True
         while running:
-            clock.tick(5)  # Adjust the speed of the game here (smaller = slower)
+            clock.tick(5)  # Adjust the speed of the game here
             self.handle_events()
             self.update()
             self.draw(screen)
@@ -70,7 +70,7 @@ class Game:
 
     def game_over(self):
         pygame.quit()
-
+        
 if __name__ == "__main__":
     game = Game()
     game.run()
