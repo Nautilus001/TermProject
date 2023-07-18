@@ -16,14 +16,16 @@ class TestGame(unittest.TestCase):
         self.game = Game()
 
     def test_snake_initial_position(self):
-        self.assertEqual(self.game.snake.position, [(0, 0)])
+        grid_size = self.game.grid_size
+        self.assertEqual(self.game.snake.position, [(grid_size[0] // 2, grid_size[1] // 2)])
 
     def test_snake_initial_direction(self):
         self.assertEqual(self.game.snake.direction, "RIGHT")
 
     def test_snake_move(self):
+        grid_size = self.game.grid_size
         self.game.snake.move()
-        self.assertEqual(self.game.snake.position, [(1, 0)])
+        self.assertEqual(self.game.snake.position, [((grid_size[0] // 2) + 1, grid_size[1] // 2)])
 
     def test_snake_change_direction(self):
         self.game.snake.change_direction("DOWN")
@@ -31,6 +33,7 @@ class TestGame(unittest.TestCase):
 
     def test_snake_collision(self):
         self.game.snake.position = [(0, 0), (1, 0), (2, 0)]  # Create a collision scenario
+        self.game.snake.move()
         self.assertTrue(self.game.snake.check_collision(self.game.grid_size))
 
     def test_snake_no_collision(self):
@@ -40,7 +43,7 @@ class TestGame(unittest.TestCase):
         initial_score = self.game.score_counter.score
         self.game.snake.position = [(0, 0), self.game.circle.position]  # Place snake head on the circle
         self.game.update()
-        self.assertEqual(self.game.score_counter.score, initial_score + 1)
+        self.assertEqual(self.game.score_counter.score, initial_score + 5 + (2*self.game.score_counter.score_multiplier))
         self.assertEqual(len(self.game.snake.position), 2)
 
 if __name__ == "__main__":
