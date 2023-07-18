@@ -8,7 +8,7 @@ class Snake:
 
     def __init__(self, grid_size: Tuple[int, int]):
         self.position = [(grid_size[0] // 2, grid_size[1] // 2)]
-        self.direction = "UP"
+        self.direction = "RIGHT"
 
     def move(self):
         head = self.position[0]
